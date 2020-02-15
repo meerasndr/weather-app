@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!--this is a comment-->
+<html lang="en">
+    <!--head section of page begins here-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title> <!--***GIVE YOUR WEBPAGE/APP ANY TITLE YOU LIKE. WHERE DOES THIS SHOW UP??***-->
+</head>
+<!-- head ends-->
+<!--body of the page begins here-->
+<body>
+    <h2>Some Title</h2> <!--***h2 is a title tag. Change the 2 to anything from 1 to 6 and see what happens. Also change "Some Title" to anything you like-->
+    
+        <input name ="cityname" placeholder="enter some placeholder text here"/>
+        <button name="submit" type="button" onclick="getData()">Show me the data!</button>
+    
+        <div id = "weatherdata" placeholder="Let's see some weather data here"></div>
+        
+    <!--This is where all the API request & response happens. The page becomes dynamic only due to this section, written mostly in Javascript-->
+    <script>
+        function sayHi(){
+            alert('Hi!');
+        }
+        function getData(){
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                    let myWeatherData = JSON.parse(this.responseText)
+                    document.getElementById("weatherdata").innerText = JSON.stringify(myWeatherData.consolidated_weather[0])
+                }
+            };
+            xhttp.open("GET", "https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/44418/", true);
+            xhttp.send();
+
+        }
+    </script>
+</body>
+</html>
